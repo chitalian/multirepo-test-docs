@@ -1,0 +1,8 @@
+sources:
+  - repo: chitalian/multirepo-test-api
+    path: docs
+    destination: api
+  - repo: chitalian/multirepo-test-sdk
+    destination: sdk
+    name: SDK
+    exclude: [README.md]

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Acme (multirepo test)",
+  "colors": { "primary": "#16A34A" },
+  "navigation": {
+    "tabs": [
+      { "tab": "Guides", "pages": ["index"] },
+      { "tab": "API", "pages": [{ "sourceRef": "chitalian/multirepo-test-api" }] }
+    ]
+  }
+}

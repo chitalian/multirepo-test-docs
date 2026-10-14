@@ -1,0 +1,31 @@
+name: Combine docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [pull-request, push, none]
+        default: pull-request
+  repository_dispatch:
+    types: [docs-updated]
+
+concurrency:
+  group: mintlify-multirepo
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: sync
+        uses: mintlify/multirepo-action@v1
+        with:
+          token: ${{ secrets.DOCS_TOKEN }}
+          mode: ${{ inputs.mode || 'pull-request' }}
+      - run: echo "changed=${{ steps.sync.outputs.changed }} sha=${{ steps.sync.outputs.commit-sha }} pr=${{ steps.sync.outputs.pull-request-url }}"
