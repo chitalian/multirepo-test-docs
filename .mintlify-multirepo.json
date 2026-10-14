@@ -1,0 +1,16 @@
+{
+  "destinations": [
+    "api",
+    "sdk"
+  ],
+  "sources": {
+    "api": {
+      "repo": "chitalian/multirepo-test-api",
+      "sha": "3fd51af0df25ef6989121cf92735581e9b38742e"
+    },
+    "sdk": {
+      "repo": "chitalian/multirepo-test-sdk",
+      "sha": "dd92022eb0af66852b467fc6ed23d4d69a7371a7"
+    }
+  }
+}
