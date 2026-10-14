@@ -1,0 +1,57 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Acme (multirepo test)",
+  "colors": {
+    "primary": "#16A34A"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "tab": "API",
+        "pages": [
+          {
+            "group": "Get started",
+            "pages": [
+              "api/introduction"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "api/reference/users",
+              "api/reference/orders"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDK",
+        "groups": [
+          {
+            "group": "JavaScript",
+            "pages": [
+              "sdk/install",
+              "sdk/guides/usage"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "variables": {
+    "apiVersion": "2026-10"
+  },
+  "redirects": [
+    {
+      "source": "/api/old-users",
+      "destination": "/api/reference/users"
+    }
+  ]
+}
