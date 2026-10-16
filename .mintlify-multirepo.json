@@ -6,11 +6,11 @@
   "sources": {
     "api": {
       "repo": "chitalian/multirepo-test-api",
-      "sha": "d9ee2f70043507405980225f9ab37cf0b3133e7c"
+      "sha": "8386835398081284a6e9d72c2850af4d6da38ac7"
     },
     "sdk": {
       "repo": "chitalian/multirepo-test-sdk",
-      "sha": "8be441f77bfcc68c4c987ac9301efaf02edf14e7"
+      "sha": "2764028321cc466ffdd985ba9d44a41d1d179d07"
     }
   }
 }

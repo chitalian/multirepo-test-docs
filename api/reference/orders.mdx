@@ -25,8 +25,19 @@ Returns a [paginated](/api/introduction#pagination) list of orders.
 | Query parameter | Description |
 | --- | --- |
 | `status` | Only return orders with this status: `pending`, `paid`, `shipped`, or `cancelled` |
-| `limit` | Page size, from 1 to 100. Defaults to 50 |
+| `limit` | Page size, from 1 to 200. Defaults to 50 |
 | `cursor` | `nextCursor` from the previous page |
+
+## Get an order
+
+`GET /v1/orders/:id`
+
+Returns a single order, or `404` if no order has that ID.
+
+```bash
+curl https://api.acme.dev/v1/orders/ord_1 \
+  -H "Authorization: Bearer sk_test_123"
+```
 
 ## Create an order
 
