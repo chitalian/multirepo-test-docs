@@ -41,10 +41,11 @@
     }
   },
   "navigation": {
-    "tabs": [
+    "products": [
       {
-        "tab": "Guides",
+        "product": "Guides",
         "icon": "book-open",
+        "description": "Start here",
         "groups": [
           {
             "group": "Get started",
@@ -69,7 +70,7 @@
         ]
       },
       {
-        "tab": "API reference",
+        "product": "API reference",
         "groups": [
           {
             "group": "Get started",
@@ -87,7 +88,7 @@
         ]
       },
       {
-        "tab": "API operations",
+        "product": "API operations",
         "groups": [
           {
             "group": "Running the API",
@@ -113,7 +114,7 @@
         ]
       },
       {
-        "tab": "Live Sample Demo",
+        "product": "Live Sample Demo",
         "groups": [
           {
             "group": "Welcome",
@@ -124,7 +125,7 @@
         ]
       },
       {
-        "tab": "SDK",
+        "product": "SDK",
         "groups": [
           {
             "group": "JavaScript",
