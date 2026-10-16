@@ -28,6 +28,23 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      # Act as the "Docs agent" GitHub App when it's configured, so PRs and commits show the bot, not a person
+      - id: app
+        if: vars.DOCS_AGENT_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.DOCS_AGENT_APP_ID }}
+          private-key: ${{ secrets.DOCS_AGENT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - id: bot
+        if: steps.app.outputs.token != ''
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          SLUG: ${{ steps.app.outputs.app-slug }}
+        run: |
+          id=$(gh api "/users/${SLUG}%5Bbot%5D" --jq .id)
+          echo "name=${SLUG}[bot]" >> "$GITHUB_OUTPUT"
+          echo "email=${id}+${SLUG}[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v5
         with:
           node-version: 22
@@ -37,7 +54,9 @@ jobs:
           REPO: ${{ github.event.client_payload.repo || inputs.repo }}
           BEFORE: ${{ github.event.client_payload.before || inputs.before }}
           AFTER: ${{ github.event.client_payload.after || inputs.after }}
-          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          GH_TOKEN: ${{ steps.app.outputs.token || secrets.DOCS_TOKEN }}
+          AGENT_NAME: ${{ steps.bot.outputs.name || 'Docs agent' }}
+          AGENT_EMAIL: ${{ steps.bot.outputs.email || 'docs-agent@users.noreply.github.com' }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           if [ -z "$REPO" ] || [ -z "$AFTER" ]; then echo "No repo in the dispatch payload. Skipping."; exit 0; fi

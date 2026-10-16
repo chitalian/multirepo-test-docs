@@ -79,7 +79,7 @@ for dir in "$WORK"/*/; do
   done
   [ -z "$(git status --porcelain)" ] && continue
   git add -A
-  git -c user.name="Docs agent" -c user.email="docs-agent@users.noreply.github.com" \
+  git -c user.name="${AGENT_NAME:-Docs agent}" -c user.email="${AGENT_EMAIL:-docs-agent@users.noreply.github.com}" \
     commit -q -m "docs: update for ${REPO#*/}@${AFTER:0:7}" -m "Written by the docs agent after: $(git -C "$CHANGED_DIR" log -1 --format=%s "$AFTER")"
   if [ "$MODE" = "pull-request" ]; then
     branch="docs-agent/${REPO#*/}-${AFTER:0:7}-${GITHUB_RUN_ID:-local}"
