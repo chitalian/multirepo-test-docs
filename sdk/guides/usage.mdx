@@ -11,7 +11,7 @@ const page = await acme.users.list({ limit: 10 })
 const user = await acme.users.get('usr_1')
 ```
 
-`users.list` returns one page: `{ data, nextCursor }`. To go through every user without handling cursors, use `users.all`:
+`users.list` returns one page: `{ data, nextCursor }`. Pages hold 20 users unless you pass `limit` (up to 100). To go through every user without handling cursors, use `users.all`:
 
 ```ts
 for await (const user of acme.users.all()) {
