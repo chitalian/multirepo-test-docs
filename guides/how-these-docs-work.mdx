@@ -25,7 +25,10 @@ Each team keeps its docs in its own repository, next to its code. This repositor
     The repo's workflow notifies this repository.
   </Step>
   <Step title="The docs agent checks the change">
-    If code changed, an AI agent reads the diff and updates the docs in every repository it affects, then pushes those doc changes.
+    If code changed, an AI agent reads the diff and opens a docs pull request in every repository the change affects. The repo's owners review and merge it.
+  </Step>
+  <Step title="The docs PR is merged">
+    Merging pushes the doc fix to the repo's `main`, which notifies this repository again.
   </Step>
   <Step title="The site repository syncs">
     `mintlify/multirepo-action` copies each repo's docs under its path, rewrites links, merges navigation, and commits to `main`.
