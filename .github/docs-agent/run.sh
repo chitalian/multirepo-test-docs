@@ -43,6 +43,8 @@ if [ -z "$code_files" ]; then
   exit 0
 fi
 commits=$(git log --format='- %h %s' "$BEFORE..$AFTER")
+commit_links=$(git log --format="- [\`%h\`](https://github.com/$REPO/commit/%H) %s" "$BEFORE..$AFTER")
+run_url="${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:-}/actions/runs/${GITHUB_RUN_ID:-}"
 echo "$code_files" | xargs git diff "$BEFORE" "$AFTER" -- > "$WORK/CHANGE.diff"
 cd "$WORK"
 
@@ -84,7 +86,15 @@ for dir in "$WORK"/*/; do
   if [ "$MODE" = "pull-request" ]; then
     branch="docs-agent/${REPO#*/}-${AFTER:0:7}-${GITHUB_RUN_ID:-local}"
     git push -q origin "HEAD:refs/heads/$branch"
-    if url=$(gh pr create -R "$repo" --head "$branch" --title "docs: update for ${REPO#*/}@${AFTER:0:7}" --body "$result"); then
+    pr_body="Opened by the docs agent after this change to \`$REPO\`:
+
+$commit_links
+
+$result
+
+---
+[Agent run]($run_url)"
+    if url=$(gh pr create -R "$repo" --head "$branch" --title "docs: update for ${REPO#*/}@${AFTER:0:7}" --body "$pr_body"); then
       note "- \`$repo\`: opened $url"
     else
       note "- \`$repo\`: pushed \`$branch\` but couldn't open the PR. Give the token Pull requests: write, or open it at https://github.com/$repo/pull/new/$branch"
