@@ -41,10 +41,11 @@
     }
   },
   "navigation": {
-    "tabs": [
+    "products": [
       {
-        "tab": "Guides",
+        "product": "Guides",
         "icon": "book-open",
+        "description": "Start here",
         "groups": [
           {
             "group": "Get started",
