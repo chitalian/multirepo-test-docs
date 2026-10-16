@@ -113,6 +113,17 @@
         ]
       },
       {
+        "tab": "Live Sample Demo",
+        "groups": [
+          {
+            "group": "Welcome",
+            "pages": [
+              "sample/sample"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "SDK",
         "groups": [
           {

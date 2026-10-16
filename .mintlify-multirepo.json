@@ -2,16 +2,21 @@
   "destinations": [
     "api",
     "api-ops",
+    "sample",
     "sdk"
   ],
   "sources": {
     "api": {
       "repo": "chitalian/multirepo-test-api",
-      "sha": "21943539b41e1e23697831899afe597cad7128de"
+      "sha": "2e9d44bd534ca1f49ade50c4df0d5db2fed8693e"
     },
     "api-ops": {
       "repo": "chitalian/multirepo-test-api",
-      "sha": "21943539b41e1e23697831899afe597cad7128de"
+      "sha": "2e9d44bd534ca1f49ade50c4df0d5db2fed8693e"
+    },
+    "sample": {
+      "repo": "chitalian/multirepo-test-api",
+      "sha": "2e9d44bd534ca1f49ade50c4df0d5db2fed8693e"
     },
     "sdk": {
       "repo": "chitalian/multirepo-test-sdk",
