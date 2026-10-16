@@ -10,10 +10,11 @@ An order is a purchase of one or more SKUs by a [user](/api/reference/users).
 | --- | --- | --- |
 | `id` | string | Unique ID, prefixed with `ord_` |
 | `userId` | string | ID of the user who placed the order |
-| `status` | string | `pending`, `paid`, or `shipped` |
+| `status` | string | `pending`, `paid`, `shipped`, or `cancelled` |
 | `items` | array | Line items, each with a `sku` and `quantity` |
 | `totalCents` | integer | Order total in cents |
 | `createdAt` | string | ISO 8601 timestamp |
+| `cancelledAt` | string or null | ISO 8601 timestamp of when the order was cancelled. `null` if the order isn't cancelled |
 
 ## List orders
 
@@ -23,8 +24,8 @@ Returns a [paginated](/api/introduction#pagination) list of orders.
 
 | Query parameter | Description |
 | --- | --- |
-| `status` | Only return orders with this status: `pending`, `paid`, or `shipped` |
-| `limit` | Page size, from 1 to 100. Defaults to 20 |
+| `status` | Only return orders with this status: `pending`, `paid`, `shipped`, or `cancelled` |
+| `limit` | Page size, from 1 to 100. Defaults to 50 |
 | `cursor` | `nextCursor` from the previous page |
 
 ## Create an order
@@ -46,3 +47,18 @@ curl -X POST https://api.acme.dev/v1/orders \
 ```
 
 Returns `201` with the new order. Returns `400` if the user doesn't exist, a SKU is unknown, or a quantity is invalid.
+
+## Cancel an order
+
+`POST /v1/orders/:id/cancel`
+
+Sets the order status to `cancelled` and sets `cancelledAt` to the current time. You can cancel orders that are `pending` or `paid`.
+
+Cancelling an order that is already `cancelled` is safe to repeat. It returns the order unchanged and keeps the original `cancelledAt`.
+
+```bash
+curl -X POST https://api.acme.dev/v1/orders/ord_1/cancel \
+  -H "Authorization: Bearer sk_test_123"
+```
+
+Returns `200` with the order. Returns `404` if no order has that ID. Returns `409` if the order has already shipped.

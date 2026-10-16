@@ -18,11 +18,11 @@ List endpoints return a page of results and a `nextCursor`:
 { "data": [], "nextCursor": "usr_2" }
 ```
 
-Pass `nextCursor` back as the `cursor` query parameter to get the next page. `nextCursor` is `null` on the last page. Use `limit` to set the page size: the default is 20 and the maximum is 100.
+Pass `nextCursor` back as the `cursor` query parameter to get the next page. `nextCursor` is `null` on the last page. Use `limit` to set the page size: the default is 50 and the maximum is 100.
 
 ## Errors
 
-Errors return a JSON body with an `error` message and a standard status code: `400` for invalid input, `401` for a missing or invalid token, and `404` when a resource or route doesn't exist.
+Errors return a JSON body with an `error` message and a standard status code: `400` for invalid input, `401` for a missing or invalid token, `404` when a resource or route doesn't exist, and `409` when the request conflicts with the current state of a resource, such as cancelling a shipped order.
 
 See [Users](/api/reference/users) and [Orders](/api/reference/orders), or use the [JavaScript SDK](/sdk/install).
 
