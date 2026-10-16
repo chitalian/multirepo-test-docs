@@ -24,7 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - id: sync
-        uses: mintlify/multirepo-action@v1
+        # Pinned to mintlify/multirepo-action#12 for destination sourceRefs. Switch back to @v1 once it's released
+        uses: mintlify/multirepo-action@justin/sourceref-destination
         with:
           token: ${{ secrets.DOCS_TOKEN }}
           mode: ${{ inputs.mode || 'push' }}

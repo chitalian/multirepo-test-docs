@@ -68,6 +68,46 @@
             ]
           }
         ]
+      },
+      {
+        "product": "API reference",
+        "icon": "server",
+        "description": "Endpoints, objects, and errors",
+        "groups": [
+          {
+            "sourceRef": "api"
+          }
+        ]
+      },
+      {
+        "product": "API operations",
+        "icon": "wrench",
+        "description": "Run and change the API service",
+        "groups": [
+          {
+            "sourceRef": "api-ops"
+          }
+        ]
+      },
+      {
+        "product": "Live sample",
+        "icon": "sparkles",
+        "description": "Doc set added live in the demo",
+        "groups": [
+          {
+            "sourceRef": "sample"
+          }
+        ]
+      },
+      {
+        "product": "SDK",
+        "icon": "braces",
+        "description": "Typed JavaScript client",
+        "groups": [
+          {
+            "sourceRef": "sdk"
+          }
+        ]
       }
     ]
   }
