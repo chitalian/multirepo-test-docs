@@ -1,7 +1,13 @@
 sources:
+  # One repo, two doc sets: each folder has its own docs.json and its own URL prefix
   - repo: chitalian/multirepo-test-api
     path: docs
     destination: api
+    name: API reference
+  - repo: chitalian/multirepo-test-api
+    path: docs_2
+    destination: api-ops
+    name: API operations
   - repo: chitalian/multirepo-test-sdk
     destination: sdk
     name: SDK

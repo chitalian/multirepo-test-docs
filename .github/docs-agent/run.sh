@@ -22,15 +22,21 @@ MODE=$(yq '.mode // "push"' "$CONFIG")
 
 # Clone every source repo so the agent can fix docs anywhere, not only in the repo that changed
 repo_list=""
+declare -A cloned
 count=$(yq '.sources | length' "$SOURCES")
 for i in $(seq 0 $((count - 1))); do
   repo=$(yq ".sources[$i].repo" "$SOURCES")
   dest=$(yq ".sources[$i].destination" "$SOURCES")
   path=$(yq ".sources[$i].path // \".\"" "$SOURCES")
-  git clone -q --filter=blob:none "https://x-access-token:${GH_TOKEN}@github.com/${repo}.git" "$WORK/$dest"
-  docs="$dest/$path"; [ "$path" = "." ] && docs="$dest/ (root, *.mdx files)"
-  repo_list+="- \`$dest/\` is \`$repo\`. Docs: \`$docs\`, published at \`/$dest/...\` on the site."$'\n'
-  [ "$repo" = "$REPO" ] && CHANGED_DIR="$WORK/$dest"
+  dir=${repo#*/}
+  # A repo can hold several doc sets, so clone it once and list each doc set
+  if [ -z "${cloned[$repo]:-}" ]; then
+    git clone -q --filter=blob:none "https://x-access-token:${GH_TOKEN}@github.com/${repo}.git" "$WORK/$dir"
+    cloned[$repo]=1
+  fi
+  docs="$dir/$path"; [ "$path" = "." ] && docs="$dir/ (root, *.mdx files)"
+  repo_list+="- Doc set \`$docs\` from \`$repo\` (checked out at \`$dir/\`), published at \`/$dest/...\` on the site."$'\n'
+  [ "$repo" = "$REPO" ] && CHANGED_DIR="$WORK/$dir"
 done
 [ -n "${CHANGED_DIR:-}" ] || { note "\`$REPO\` isn't in $SOURCES. Skipping."; exit 0; }
 
