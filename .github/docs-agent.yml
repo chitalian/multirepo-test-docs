@@ -1,0 +1,6 @@
+# Central control for the docs agent. One line per repo turns automation on or off.
+model: anthropic/claude-sonnet-5.5
+mode: push            # push: commit doc updates straight to each child's main. pull-request: open a PR in each child instead.
+repos:
+  chitalian/multirepo-test-api: { enabled: true }
+  chitalian/multirepo-test-sdk: { enabled: true }

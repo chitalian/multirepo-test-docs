@@ -1,0 +1,28 @@
+---
+title: "Fulfill orders"
+description: "Take an order from pending to shipped."
+icon: "package-check"
+---
+
+Orders move through three statuses:
+
+| Status | Meaning |
+| --- | --- |
+| `pending` | Created, not paid yet |
+| `paid` | Payment captured |
+| `shipped` | Handed to the carrier |
+
+## Find orders to ship
+
+List paid orders and work through them page by page:
+
+```ts
+let cursor: string | undefined
+do {
+  const page = await acme.orders.list({ status: 'paid', limit: 50, cursor })
+  for (const order of page.data) await ship(order)
+  cursor = page.nextCursor ?? undefined
+} while (cursor)
+```
+
+See [pagination](/api/introduction#pagination) for how cursors work, and the [Orders API](/api/reference/orders) for every field.

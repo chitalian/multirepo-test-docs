@@ -5,4 +5,4 @@ sources:
   - repo: chitalian/multirepo-test-sdk
     destination: sdk
     name: SDK
-    exclude: [README.md]
+    exclude: [README.md, "src/**", package.json, package-lock.json, tsconfig.json]

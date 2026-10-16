@@ -1,0 +1,36 @@
+---
+title: "Quickstart"
+description: "Make your first request and create an order."
+icon: "rocket"
+---
+
+<Steps>
+  <Step title="Get an API key">
+    Create a key in the Acme dashboard. Test keys start with `sk_test_`.
+  </Step>
+  <Step title="Install the SDK">
+    ```bash
+    npm install acme@4
+    ```
+    See [install](/sdk/install) for client options.
+  </Step>
+  <Step title="List your users">
+    ```ts
+    import { Acme } from 'acme'
+
+    const acme = new Acme({ apiKey: process.env.ACME_API_KEY })
+    const { data } = await acme.users.list({ limit: 5 })
+    ```
+  </Step>
+  <Step title="Create an order">
+    ```ts
+    const order = await acme.orders.create({
+      userId: data[0].id,
+      items: [{ sku: 'WIDGET-1', quantity: 2 }],
+    })
+    console.log(order.status) // "pending"
+    ```
+  </Step>
+</Steps>
+
+Prefer raw HTTP? Every call above maps to an endpoint in the [API reference](/api/introduction).

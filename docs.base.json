@@ -1,12 +1,32 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Acme (multirepo test)",
-  "colors": { "primary": "#16A34A" },
+  "theme": "maple",
+  "name": "Acme",
+  "colors": { "primary": "#4F46E5", "light": "#818CF8", "dark": "#4338CA" },
+  "logo": { "light": "/logo/light.svg", "dark": "/logo/dark.svg" },
+  "favicon": "/favicon.svg",
+  "fonts": { "family": "Inter" },
+  "background": { "decoration": "gradient" },
+  "icons": { "library": "lucide" },
+  "navbar": {
+    "links": [{ "label": "Status", "href": "https://status.acme.dev" }],
+    "primary": { "type": "button", "label": "Get an API key", "href": "https://dashboard.acme.dev" }
+  },
+  "footer": {
+    "socials": { "github": "https://github.com/chitalian/multirepo-test-docs", "x": "https://x.com/acme" }
+  },
   "navigation": {
     "tabs": [
-      { "tab": "Guides", "pages": ["index"] },
-      { "tab": "API", "pages": [{ "sourceRef": "chitalian/multirepo-test-api" }] }
+      {
+        "tab": "Guides",
+        "icon": "book-open",
+        "groups": [
+          { "group": "Get started", "pages": ["index", "quickstart"] },
+          { "group": "Guides", "pages": ["guides/fulfill-orders", "guides/how-these-docs-work"] },
+          { "group": "Updates", "pages": ["changelog"] }
+        ]
+      },
+      { "tab": "API reference", "icon": "server", "pages": [{ "sourceRef": "chitalian/multirepo-test-api" }] }
     ]
   }
 }

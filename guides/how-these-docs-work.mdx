@@ -1,0 +1,38 @@
+---
+title: "How these docs work"
+description: "One site, many repositories."
+icon: "git-merge"
+---
+
+Each team keeps its docs in its own repository, next to its code. This repository holds the shared pieces: branding, these guides, and the navigation shell.
+
+<CardGroup cols={3}>
+  <Card title="API" icon="server" href="https://github.com/chitalian/multirepo-test-api">
+    `docs/` folder, published under `/api`
+  </Card>
+  <Card title="SDK" icon="braces" href="https://github.com/chitalian/multirepo-test-sdk">
+    Docs at the repo root, published under `/sdk`
+  </Card>
+  <Card title="Site" icon="layout-template" href="https://github.com/chitalian/multirepo-test-docs">
+    Shared config and guides
+  </Card>
+</CardGroup>
+
+## What happens on a push
+
+<Steps>
+  <Step title="A team pushes to its repo">
+    The repo's workflow notifies this repository.
+  </Step>
+  <Step title="The docs agent checks the change">
+    If code changed, an AI agent reads the diff and updates the docs in every repository it affects, then pushes those doc changes.
+  </Step>
+  <Step title="The site repository syncs">
+    `mintlify/multirepo-action` copies each repo's docs under its path, rewrites links, merges navigation, and commits to `main`.
+  </Step>
+  <Step title="Mintlify deploys">
+    The site rebuilds from `main`, usually within a minute or two.
+  </Step>
+</Steps>
+
+Automation is switched on per repository in `.github/docs-agent.yml`.

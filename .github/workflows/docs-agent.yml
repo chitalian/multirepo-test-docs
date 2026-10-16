@@ -1,0 +1,44 @@
+name: Docs agent
+
+on:
+  repository_dispatch:
+    types: [docs-updated]
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: Child repo that changed, e.g. chitalian/multirepo-test-api
+        required: true
+      before:
+        description: Commit before the change (blank for the parent of "after")
+        required: false
+      after:
+        description: Commit after the change
+        required: true
+
+concurrency:
+  group: docs-agent
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Update docs across repos
+        env:
+          REPO: ${{ github.event.client_payload.repo || inputs.repo }}
+          BEFORE: ${{ github.event.client_payload.before || inputs.before }}
+          AFTER: ${{ github.event.client_payload.after || inputs.after }}
+          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -z "$REPO" ] || [ -z "$AFTER" ]; then echo "No repo in the dispatch payload. Skipping."; exit 0; fi
+          .github/docs-agent/run.sh
