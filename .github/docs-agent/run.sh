@@ -82,10 +82,14 @@ for dir in "$WORK"/*/; do
   git -c user.name="Docs agent" -c user.email="docs-agent@users.noreply.github.com" \
     commit -q -m "docs: update for ${REPO#*/}@${AFTER:0:7}" -m "Written by the docs agent after: $(git -C "$CHANGED_DIR" log -1 --format=%s "$AFTER")"
   if [ "$MODE" = "pull-request" ]; then
-    branch="docs-agent/${REPO#*/}-${AFTER:0:7}"
+    branch="docs-agent/${REPO#*/}-${AFTER:0:7}-${GITHUB_RUN_ID:-local}"
     git push -q origin "HEAD:refs/heads/$branch"
-    url=$(gh pr create -R "$repo" --head "$branch" --title "docs: update for ${REPO#*/}@${AFTER:0:7}" --body "$result")
-    note "- \`$repo\`: opened $url"
+    if url=$(gh pr create -R "$repo" --head "$branch" --title "docs: update for ${REPO#*/}@${AFTER:0:7}" --body "$result"); then
+      note "- \`$repo\`: opened $url"
+    else
+      note "- \`$repo\`: pushed \`$branch\` but couldn't open the PR. Give the token Pull requests: write, or open it at https://github.com/$repo/pull/new/$branch"
+      exit 1
+    fi
   else
     git push -q origin HEAD:main
     note "- \`$repo\`: pushed $(git rev-parse --short HEAD) to main ($(git show --stat --format= HEAD | tail -1))"
