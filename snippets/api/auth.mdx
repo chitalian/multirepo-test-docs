@@ -1,1 +1,7 @@
-Authenticate with a bearer token.
+Authenticate every request with a bearer token in the `Authorization` header:
+
+```bash
+Authorization: Bearer sk_test_123
+```
+
+Requests without a valid token get a `401` response.

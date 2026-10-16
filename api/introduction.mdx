@@ -4,14 +4,26 @@ title: "API introduction"
 
 import Auth from '/snippets/api/auth.mdx'
 
-Version {{apiVersion}}.
+The Acme API manages users and orders. Version {{apiVersion}}.
+
+## Authentication
 
 <Auth />
 
-See [Users](/api/reference/users) and the [JavaScript SDK](/sdk/install).
+## Pagination
+
+List endpoints return a page of results and a `nextCursor`:
+
+```json
+{ "data": [], "nextCursor": "usr_2" }
+```
+
+Pass `nextCursor` back as the `cursor` query parameter to get the next page. `nextCursor` is `null` on the last page. Use `limit` to set the page size: the default is 20 and the maximum is 100.
+
+## Errors
+
+Errors return a JSON body with an `error` message and a standard status code: `400` for invalid input, `401` for a missing or invalid token, and `404` when a resource or route doesn't exist.
+
+See [Users](/api/reference/users) and [Orders](/api/reference/orders), or use the [JavaScript SDK](/sdk/install).
 
 ![Diagram](/api/images/diagram.svg)
-
-```mdx
-[left alone](/reference/users)
-```

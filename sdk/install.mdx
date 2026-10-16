@@ -2,6 +2,26 @@
 title: "Install"
 ---
 
-npm install acme@4. Then read [usage](/sdk/guides/usage).
+Install the SDK from npm:
+
+```bash
+npm install acme@4
+```
 
 <Note>Requires Node.js 20 or later.</Note>
+
+Create a client with your API key. If you leave out `apiKey`, the client reads the `ACME_API_KEY` environment variable.
+
+```ts
+import { Acme } from 'acme'
+
+const acme = new Acme({ apiKey: process.env.ACME_API_KEY })
+```
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `apiKey` | `ACME_API_KEY` env var | Secret API key |
+| `baseUrl` | `https://api.acme.dev` | API base URL |
+| `maxRetries` | `2` | Retries for requests that fail with a 5xx or network error |
+
+Then read [usage](/sdk/guides/usage).

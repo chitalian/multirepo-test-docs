@@ -2,4 +2,47 @@
 title: "Orders"
 ---
 
-List orders.
+An order is a purchase of one or more SKUs by a [user](/api/reference/users).
+
+## The order object
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | string | Unique ID, prefixed with `ord_` |
+| `userId` | string | ID of the user who placed the order |
+| `status` | string | `pending`, `paid`, or `shipped` |
+| `items` | array | Line items, each with a `sku` and `quantity` |
+| `totalCents` | integer | Order total in cents |
+| `createdAt` | string | ISO 8601 timestamp |
+
+## List orders
+
+`GET /v1/orders`
+
+Returns a [paginated](/api/introduction#pagination) list of orders.
+
+| Query parameter | Description |
+| --- | --- |
+| `status` | Only return orders with this status: `pending`, `paid`, or `shipped` |
+| `limit` | Page size, from 1 to 100. Defaults to 20 |
+| `cursor` | `nextCursor` from the previous page |
+
+## Create an order
+
+`POST /v1/orders`
+
+Creates an order with status `pending`. The total is calculated from the SKU prices.
+
+| Body field | Type | Description |
+| --- | --- | --- |
+| `userId` | string | ID of an existing user. Required |
+| `items` | array | Non-empty list of `{ sku, quantity }`. `quantity` must be a positive integer. Required |
+
+```bash
+curl -X POST https://api.acme.dev/v1/orders \
+  -H "Authorization: Bearer sk_test_123" \
+  -H "Content-Type: application/json" \
+  -d '{"userId": "usr_1", "items": [{"sku": "WIDGET-1", "quantity": 2}]}'
+```
+
+Returns `201` with the new order. Returns `400` if the user doesn't exist, a SKU is unknown, or a quantity is invalid.

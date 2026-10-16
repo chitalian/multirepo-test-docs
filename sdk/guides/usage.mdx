@@ -2,4 +2,46 @@
 title: "Usage"
 ---
 
-Call the [Users API](/api/reference/users).
+The client mirrors the [Users API](/api/reference/users) and [Orders API](/api/reference/orders).
+
+## Users
+
+```ts
+const page = await acme.users.list({ limit: 10 })
+const user = await acme.users.get('usr_1')
+```
+
+`users.list` returns one page: `{ data, nextCursor }`. To go through every user without handling cursors, use `users.all`:
+
+```ts
+for await (const user of acme.users.all()) {
+  console.log(user.email)
+}
+```
+
+## Orders
+
+```ts
+const paid = await acme.orders.list({ status: 'paid' })
+
+const order = await acme.orders.create({
+  userId: 'usr_1',
+  items: [{ sku: 'WIDGET-1', quantity: 2 }],
+})
+```
+
+New orders start with status `pending`.
+
+## Errors
+
+Failed requests throw an `AcmeError` with the HTTP `status` and the API's error message:
+
+```ts
+import { AcmeError } from 'acme'
+
+try {
+  await acme.users.get('usr_missing')
+} catch (err) {
+  if (err instanceof AcmeError && err.status === 404) console.log('No such user')
+}
+```

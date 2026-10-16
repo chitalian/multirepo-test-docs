@@ -2,4 +2,40 @@
 title: "Users"
 ---
 
-List users. Back to [intro](/api/introduction).
+A user is an Acme customer account. Back to [intro](/api/introduction).
+
+## The user object
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | string | Unique ID, prefixed with `usr_` |
+| `email` | string | Email address |
+| `name` | string | Display name |
+| `createdAt` | string | ISO 8601 timestamp |
+
+## List users
+
+`GET /v1/users`
+
+Returns a [paginated](/api/introduction#pagination) list of users.
+
+| Query parameter | Description |
+| --- | --- |
+| `limit` | Page size, from 1 to 100. Defaults to 20 |
+| `cursor` | `nextCursor` from the previous page |
+
+```bash
+curl https://api.acme.dev/v1/users?limit=10 \
+  -H "Authorization: Bearer sk_test_123"
+```
+
+## Get a user
+
+`GET /v1/users/:id`
+
+Returns a single user, or `404` if no user has that ID.
+
+```bash
+curl https://api.acme.dev/v1/users/usr_1 \
+  -H "Authorization: Bearer sk_test_123"
+```
