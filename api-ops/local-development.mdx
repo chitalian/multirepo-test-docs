@@ -1,0 +1,32 @@
+---
+title: "Local development"
+description: "Run the API on your machine."
+icon: "terminal"
+---
+
+<Steps>
+  <Step title="Install dependencies">
+    ```bash
+    npm install
+    ```
+  </Step>
+  <Step title="Start the server">
+    ```bash
+    npm run dev
+    ```
+    The server reloads on every change and listens on port 3000. Set `PORT` to change it.
+  </Step>
+  <Step title="Make a request">
+    ```bash
+    curl http://localhost:3000/v1/users \
+      -H "Authorization: Bearer sk_test_123"
+    ```
+    `sk_test_123` is the default key when `ACME_API_KEY` isn't set. See [configuration](/api-ops/configuration).
+  </Step>
+</Steps>
+
+Before you push, check types:
+
+```bash
+npm run typecheck
+```

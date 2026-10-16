@@ -1,0 +1,36 @@
+---
+title: "Add an endpoint"
+description: "The pattern every route in the API follows."
+icon: "plus"
+---
+
+Routes are plain objects with a `method`, a `path`, and an async `handler`. Path segments starting with `:` become `req.params`.
+
+<Steps>
+  <Step title="Add the route">
+    Add an entry to the resource's file in `src/routes/`:
+
+    ```ts
+    {
+      method: 'GET',
+      path: '/v1/users/:id',
+      handler: async (req) => {
+        const user = users.find((u) => u.id === req.params.id)
+        if (!user) throw new HttpError(404, `User ${req.params.id} not found`)
+        return { status: 200, body: user }
+      },
+    }
+    ```
+  </Step>
+  <Step title="Return errors with HttpError">
+    Throw `new HttpError(status, message)`. The server turns it into `{ "error": message }` with that status. Anything else becomes a `500`.
+  </Step>
+  <Step title="Use the shared pagination for lists">
+    Return `paginate(items, req)` so the endpoint gets the same `limit` and `cursor` behavior as every other list.
+  </Step>
+  <Step title="Register new resource files">
+    If you add a new file in `src/routes/`, add its routes to the `routes` array in `src/index.ts`.
+  </Step>
+</Steps>
+
+You don't need to update the public [API reference](/api/introduction) by hand. When your change lands on `main`, the docs agent opens a PR with the doc updates.

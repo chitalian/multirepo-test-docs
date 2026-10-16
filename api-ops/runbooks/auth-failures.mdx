@@ -1,0 +1,11 @@
+---
+title: "Spike in 401s"
+description: "What to check when clients suddenly fail authentication."
+icon: "shield-alert"
+---
+
+Every request is checked against a single key, `ACME_API_KEY`. A sudden rise in `401` responses almost always means clients and the server disagree on that key.
+
+1. **Check the deployed key.** Confirm `ACME_API_KEY` is set on the running service. If it's missing, the server falls back to `sk_test_123` and rejects every real key.
+2. **Check for a recent rotation.** If the key was just rotated, clients still sending the old key will fail. See [rotate the API key](/api-ops/runbooks/rotate-api-key).
+3. **Check the header format.** The server compares the whole header, so it must be exactly `Authorization: Bearer <key>`, with one space and no quotes.

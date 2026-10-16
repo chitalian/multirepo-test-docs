@@ -1,10 +1,15 @@
 {
   "destinations": [
     "api",
+    "api-ops",
     "sdk"
   ],
   "sources": {
     "api": {
+      "repo": "chitalian/multirepo-test-api",
+      "sha": "21943539b41e1e23697831899afe597cad7128de"
+    },
+    "api-ops": {
       "repo": "chitalian/multirepo-test-api",
       "sha": "21943539b41e1e23697831899afe597cad7128de"
     },

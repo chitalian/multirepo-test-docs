@@ -1,0 +1,29 @@
+---
+title: "API operations"
+sidebarTitle: "Overview"
+description: "How the Acme API service is built, run, and changed."
+icon: "wrench"
+---
+
+This doc set is for the engineers who run and change the Acme API service. If you're calling the API, read the [API reference](/api/introduction) instead.
+
+It lives in the same repository as the public API docs, in its own `docs_2/` folder with its own `docs.json`, and is published separately under `/api-ops`.
+
+## How the service is built
+
+| Piece | File | What it does |
+| --- | --- | --- |
+| Server | `src/index.ts` | Node `http` server. Checks the bearer token, then matches the request to a route |
+| Routing | `src/http.ts` | `match()` turns paths like `/v1/users/:id` into params. `HttpError` maps to a JSON error response |
+| Routes | `src/routes/` | One file per resource: `users.ts`, `orders.ts` |
+| Pagination | `src/pagination.ts` | Shared `limit` and `cursor` handling for every list endpoint |
+| Data | `src/store.ts` | In-memory users, orders, and SKU prices |
+
+<CardGroup cols={2}>
+  <Card title="Run it locally" icon="terminal" href="/api-ops/local-development">
+    Start the server and make a request in two commands.
+  </Card>
+  <Card title="Add an endpoint" icon="plus" href="/api-ops/add-an-endpoint">
+    The pattern every route follows.
+  </Card>
+</CardGroup>

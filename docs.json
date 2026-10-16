@@ -70,8 +70,7 @@
       },
       {
         "tab": "API reference",
-        "icon": "server",
-        "pages": [
+        "groups": [
           {
             "group": "Get started",
             "pages": [
@@ -83,6 +82,32 @@
             "pages": [
               "api/reference/users",
               "api/reference/orders"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API operations",
+        "groups": [
+          {
+            "group": "Running the API",
+            "pages": [
+              "api-ops/overview",
+              "api-ops/local-development",
+              "api-ops/configuration"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "api-ops/add-an-endpoint"
+            ]
+          },
+          {
+            "group": "Runbooks",
+            "pages": [
+              "api-ops/runbooks/auth-failures",
+              "api-ops/runbooks/rotate-api-key"
             ]
           }
         ]

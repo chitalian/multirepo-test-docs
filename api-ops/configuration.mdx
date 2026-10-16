@@ -1,0 +1,16 @@
+---
+title: "Configuration"
+description: "Environment variables the API reads at startup."
+icon: "settings"
+---
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `ACME_API_KEY` | `sk_test_123` | The only bearer token the server accepts. Every request without it gets a `401` |
+| `PORT` | `3000` | Port the HTTP server listens on |
+
+<Warning>
+  Always set `ACME_API_KEY` outside local development. The default key is public.
+</Warning>
+
+Pagination limits are set in code, not configuration. See `DEFAULT_LIMIT` and `MAX_LIMIT` in `src/pagination.ts`, and the public behavior in [pagination](/api/introduction#pagination).
