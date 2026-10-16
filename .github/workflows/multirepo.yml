@@ -6,7 +6,7 @@ on:
       mode:
         type: choice
         options: [pull-request, push, none]
-        default: pull-request
+        default: push
   repository_dispatch:
     types: [docs-updated]
 
@@ -27,5 +27,5 @@ jobs:
         uses: mintlify/multirepo-action@v1
         with:
           token: ${{ secrets.DOCS_TOKEN }}
-          mode: ${{ inputs.mode || 'pull-request' }}
+          mode: ${{ inputs.mode || 'push' }}
       - run: echo "changed=${{ steps.sync.outputs.changed }} sha=${{ steps.sync.outputs.commit-sha }} pr=${{ steps.sync.outputs.pull-request-url }}"
