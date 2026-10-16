@@ -6,7 +6,7 @@
   "sources": {
     "api": {
       "repo": "chitalian/multirepo-test-api",
-      "sha": "8386835398081284a6e9d72c2850af4d6da38ac7"
+      "sha": "d2f94bc5cefb95958e5587d2a59afe7390d5e76d"
     },
     "sdk": {
       "repo": "chitalian/multirepo-test-sdk",
