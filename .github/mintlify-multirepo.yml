@@ -8,6 +8,10 @@ sources:
     path: docs_2
     destination: api-ops
     name: API operations
+  - repo: chitalian/multirepo-test-api
+    path: docs_3
+    destination: sample
+    name: Live Sample Demo
   - repo: chitalian/multirepo-test-sdk
     destination: sdk
     name: SDK
